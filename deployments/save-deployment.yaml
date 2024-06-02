@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-save
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-save
+  template:
+    metadata:
+      labels:
+        app: backend-save
+    spec:
+      containers:
+      - name: backend-save
+        image: chris4929/webback8:dbservice2
+        ports:
+        - containerPort: 5002

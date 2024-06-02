@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-interpret
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-interpret
+  template:
+    metadata:
+      labels:
+        app: backend-interpret
+    spec:
+      containers:
+      - name: backend-interpret
+        image: chris4929/webback3:interpret
+        ports:
+        - containerPort: 5006

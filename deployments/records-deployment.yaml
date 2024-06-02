@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-records
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-records
+  template:
+    metadata:
+      labels:
+        app: backend-records
+    spec:
+      containers:
+      - name: backend-records
+        image: chris4929/webback6:history2
+        ports:
+        - containerPort: 5007

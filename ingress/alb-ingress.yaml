@@ -1,0 +1,98 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-upload
+spec:
+  selector:
+    app: backend-upload
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alb-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/success-codes: 200,404
+spec:
+  ingressClassName: alb
+  rules:
+  - host: "www.daemonset.site"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - path: /signin
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-signin
+            port:
+              number: 5012
+      - path: /protected
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-signin
+            port:
+              number: 5012
+      - path: /logout
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-signin
+            port:
+              number: 5012
+      - path: /signup
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-signup
+            port:
+              number: 5011
+      - path: /upload
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-upload
+            port:
+              number: 5001
+      - path: /preprocess
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-preprocess
+            port:
+              number: 5003
+      - path: /interpret
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-interpret
+            port:
+              number: 5006
+      - path: /save
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-save
+            port:
+              number: 5002
+      - path: /records
+        pathType: Exact
+        backend:
+          service:
+            name: backend-service-records
+            port:
+              number: 5007

@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-signin
+spec:
+  selector:
+    app: backend-signin
+  ports:
+    - protocol: TCP
+      port: 5012
+      targetPort: 5012
+  type: ClusterIP

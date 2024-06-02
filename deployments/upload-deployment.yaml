@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-upload
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-upload
+  template:
+    metadata:
+      labels:
+        app: backend-upload
+    spec:
+      containers:
+      - name: backend-upload
+        image: chris4929/webback7:upload2
+        ports:
+        - containerPort: 5001

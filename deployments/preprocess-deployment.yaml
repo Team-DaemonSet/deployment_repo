@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-preprocess
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-preprocess
+  template:
+    metadata:
+      labels:
+        app: backend-preprocess
+    spec:
+      containers:
+      - name: backend-preprocess
+        image: chris4929/webback5:preprocess4
+        ports:
+        - containerPort: 5003
